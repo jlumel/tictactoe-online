@@ -60,16 +60,28 @@ In the tictactoe application folder there are all the files where the app is dev
 
 - static: A folder where all the static files are stored. There are some images, the favicon, the css file, the Roboto font file, jquery file and a utils.js file where the logic for win and draw checking during matches is.
 
+## Databases
+
+The main SQL database is SQLite and is created automaticly by Django when building commands are run.
+
+The Redis database has to be created and run outside the App. By default the Redis configuration on Development environment is:
+
+**host='localhost'**
+
+**port=6379**
+
+**db=0**
+
 ## Build and Start Commands
 
 - Build
 
-pip install -r requirements.txt
+**pip install -r requirements.txt**
 
-python manage.py makemigrations tictactoe
+**python manage.py makemigrations tictactoe**
 
-python manage.py migrate
+**python manage.py migrate**
 
 - Start
 
-python manage.py runserver
+**python manage.py runserver**
