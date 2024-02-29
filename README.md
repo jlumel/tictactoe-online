@@ -65,7 +65,9 @@ In the tictactoe application folder there are all the files where the app is dev
 - Build
 
 pip install -r requirements.txt
+
 python manage.py makemigrations tictactoe
+
 python manage.py migrate
 
 - Start
