@@ -1,0 +1,494 @@
+@font-face {
+  font-family: Roboto-Regular;
+  src: url(Roboto-Regular.ttf);
+}
+
+body {
+  font-family: Roboto-Regular;
+}
+
+.match-container {
+  display: flex;
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.col {
+  justify-content: center;
+  margin: 40px 30px auto auto;
+}
+
+.col2 {
+  margin: 65px auto 20px 30px;
+}
+
+#msg {
+  font-size: 36px;
+  font-weight: bold;
+  color: green;
+  font-family: Roboto-Regular;
+  text-align: center;
+}
+
+.match-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-family: Roboto-Regular;
+  text-align: center;
+}
+
+.box {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0.5em;
+  background-size: cover;
+  margin: 2px;
+}
+
+.circle, .cross {
+  background-image: url('assets/tic.png');
+}
+
+.cross {
+  background-position: 100%;
+}
+
+.box-win-h {
+  width: 600px;
+  height: 180px;
+  background: url(assets/LineH.png);
+  position: relative;
+  animation: mymoveh 0.5s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymoveh {
+  0% {
+    width: 0px;
+    height: 180px;
+    background: url(assets/LineH.png);
+  }
+
+  100% {
+    width: 600px;
+    height: 180px;
+    background: url(assets/LineH.png);
+  }
+}
+
+.box-win-v {
+  width: 180px;
+  height: 600px;
+  background: url(assets/LineV.png);
+  position: relative;
+  animation: mymovev 0.5s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymovev {
+  0% {
+    width: 180px;
+    height: 0px;
+    background: url(assets/LineV.png);
+  }
+
+  100% {
+    width: 180px;
+    height: 600px;
+    background: url(assets/LineV.png);
+  }
+}
+
+.box-win-d-left {
+  width: 600px;
+  height: 600px;
+  background: url(assets/LineD-iztode.png);
+  position: relative;
+  animation: mymoved-left 0.5s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymoved-left {
+  0% {
+    width: 0px;
+    height: 0px;
+    background: url(assets/LineD-iztode.png);
+  }
+
+  100% {
+    width: 600px;
+    height: 600px;
+    background: url(assets/LineD-iztode.png);
+  }
+}
+
+.box-win-d-right {
+  width: 600px;
+  height: 600px;
+  background: url(assets/LineD-detoiz.png);
+  position: relative;
+  animation: mymoved-right 0.5s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymoved-right {
+  0% {
+    width: 0px;
+    height: 600px;
+    background: url(assets/LineD-detoiz.png);
+  }
+
+  100% {
+    width: 600px;
+    height: 600px;
+    background: url(assets/LineD-detoiz.png);
+  }
+}
+
+.players {
+  font-family: Roboto-Regular;
+  border: 2px solid black;
+  background-color: grey;
+  width: 300px;
+  height: 150px;
+  margin: 60px auto;
+  text-align: left;
+  padding: 7px;
+}
+
+.players td, .players th {
+  padding: 5px;
+}
+
+.invisible {
+  display: none;
+}
+
+.turn {
+  border: 1px solid black;
+  background-color: green;
+}
+
+#reset {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: green;
+  padding: 10px;
+}
+
+#leave {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: red;
+  padding: 10px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.nav-container a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-container a:hover {
+  color: grey;
+}
+
+.nav-container li {
+  list-style: none;
+  margin-right: 2vw;
+  font-size: 1.5rem;
+}
+
+.register-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  width: 18vw;
+  border: 1px solid black;
+  padding: 1rem 0.5rem;
+  border-radius: 8px;
+}
+
+.register-login input, .register-login button {
+  width: 15vw;
+  height: 4vh;
+  margin: 0.5vw auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 0 5px;
+}
+
+.register-login button {
+  cursor: pointer;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+  border: none;
+  margin-bottom: 0;
+}
+
+h2 {
+  margin: 10vh auto 5vh auto;
+  text-align: center;
+  font-size: 30px;
+}
+
+.menu {
+  margin-top: 12vh;
+  text-align: center;
+  font-size: 24px;
+}
+
+.menu button {
+  cursor: pointer;
+  width: 5vw;
+  border: none;
+  color: white;
+  background-color: #0d6efd;
+  font-size: 14px;
+  border-radius: 5px;
+  height: 4vh;
+}
+
+.start-container {
+  display: flex;
+  margin-top: 20vh;
+}
+
+.startbtn {
+  margin: auto;
+}
+
+.startbtn button {
+  font-size: 4rem;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  box-shadow: 10px 10px 25px 12px;
+}
+
+.startbtn button:active {
+  box-shadow: inset 10px 10px 25px 12px;
+}
+
+.options-container {
+  margin-top: 20vh;
+  display: flex;
+  justify-content: center;
+}
+
+.options-container button {
+  margin: 0 1vw;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  box-shadow: 5px 5px 12px 6px;
+  font-weight: bold;
+}
+
+.options-container button:active {
+  box-shadow: inset 2px 2px 6px 3px;
+}
+
+.lobby_list_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lobby_list_container p {
+  font-size: 18px;
+  margin: 5vh auto;
+}
+
+.lobby_list {
+  padding-left: 0;
+  border: 1px solid black;
+  height: 60vh;
+  width: 18vw;
+  margin: auto;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.lobby_list a {
+  text-decoration: none;
+}
+
+.lobby_list li {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.lobby_list li:active {
+  border: 1px dotted black;
+  color: blue;
+}
+
+.players-container {
+  margin-top: 30vh;
+  display: flex;
+  justify-content: center;
+}
+
+.players-container button {
+  margin: 0 1vw;
+  font-size: 3rem;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+}
+
+.players-container p {
+  margin: auto 0;
+  font-size: 1.5rem;
+}
+
+.lobby-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-match {
+  display: flex;
+}
+
+.start-button {
+  margin: 15vh auto auto;
+  font-size: 3rem;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.go-back-button {
+  margin: 15vh auto auto;
+  font-size: 3rem;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.go-back {
+  margin: 5vh auto auto;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.table-container {
+  margin-top: 6vh;
+  display: flex;
+  justify-content: center;
+}
+
+.table-container table {
+  font-size: 1.5rem;
+  border: 1px solid grey;
+  border-collapse: collapse;
+}
+
+.table-container tr {
+text-align: center;
+}
+
+.table-container th, .table-container td {
+  padding: 0.5rem 3rem;
+}
+
+.tbody td {
+ border-top: 1px solid grey;
+}
+
+@media only screen and (max-width: 980px) {
+  .match-container {
+    margin: 4vh;
+    flex-direction: column;
+  }
+
+  #reset {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: green;
+    padding: 10px;
+    font-size: 24px;
+  }
+  
+  #leave {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    font-size: 24px;
+  }
+
+  .lobby_list {
+    width: 60vw
+  }
+
+  .box {
+    width: 200px;
+    height: 200px;
+    font-size: 12px;
+  }
+
+  .players {
+    height: 200px
+  }
+
+  .players td, .players th {
+    font-size: 24px;
+  }
+
+  #msg {
+    font-size: 48px;
+  }
+
+  .col, .col2 {
+    margin: 2vh auto;
+  }
+}
