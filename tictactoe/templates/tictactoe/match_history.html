@@ -1,0 +1,44 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+
+<h2>Match History</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Opponent</th>
+                <th>Result</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            {% for match in matches %}
+            <tr>
+                <td>
+                    {% if match.player_one.username == user.username %}
+                    {{match.player_two}}
+                    {% else %}
+                    {{match.player_one}}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if match.is_draw == True %}
+                    Draw
+                    {% elif match.winner.username == user.username %}
+                    Win
+                    {% else %}
+                    Loss
+                    {% endif %}
+                </td>
+                <td>
+                    {{match.timestamp}}
+                </td>
+            </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

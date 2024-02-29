@@ -1,0 +1,16 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+<div class="container">
+{% if title %}
+<h2>{{title}}</h2>
+{% else %}
+<h2>Page not found</h2>
+{% endif %}
+{% if text %}
+<a style="margin: auto;" href={{path}}><button class="go-back">{{text}}</button></a>
+{% else %}
+<a style="margin: auto;" href="/"><button class="go-back">Go back to Home Page</button></a>
+{% endif %}
+</div>
+{% endblock %}

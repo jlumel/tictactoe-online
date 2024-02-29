@@ -1,0 +1,110 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+  <div class="lobby-container">
+    <div class="players-container">
+      <button>{{ player_one }}</button>
+      <p>vs</p>
+      <button id="player_two_text">
+        {% if player_two %}
+          {{ player_two }}
+        {% else %}
+          Waiting for player...
+        {% endif %}
+      </button>
+    </div>
+
+    <form class="start-match" action="{% url 'match_room' %}" method="post">
+      {% csrf_token %}
+      <input id="first_player" name="player_one" style="display: none;" type="text" value="{{ player_one }}" />
+      <input id="second_player" name="player_two" style="display: none;" type="text" value="{% if player_two %}{{ player_two }}{% endif %}" />
+      <button class="start-button" disabled type="submit">Start</button>
+    </form>
+
+    <form style="display: none;" class="error-form" action="/error" method="post">
+      {% csrf_token %}
+      <input name="title" type="text" value="Host disconnected" />
+      <input name="text" type="text" value="Go back to Lobby List" />
+      <input name="path" type="text" value="/lobby_list" />
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    const player_one = document.querySelector('#first_player').value
+    const players = document.querySelector(".players-container")
+    const start_match = document.querySelector(".start-match")
+    const start_button = document.querySelector(".start-match")[3]
+    let url = `ws://${window.location.host}/ws/lobby?p=${player_one}`
+    const socket = new WebSocket(url)
+    let players_count
+    const time = 5
+    const player_two = document.querySelector('#second_player')
+    const player_two_text = document.querySelector('#player_two_text')
+
+    socket.onmessage = function (event) {
+      let data = JSON.parse(event.data)
+      switch (data.type) {
+        case 'connection_established':
+          sendMessage('lobby', player_one)
+          break
+        case 'players_count':
+          players_count = data.message
+          break
+        case 'new_player':
+          if (player_one == data.message.split(',')[0]) {
+            player_two.value = data.message.split(',')[1]
+            player_two_text.innerText = data.message.split(',')[1]
+            start_button.disabled = false
+          }
+          break
+        case 'player_leave':
+          if (player_one == data.message.split(',')[0]) {
+            player_two.value = ''
+            player_two_text.innerText = 'Waiting for player...'
+            start_button.disabled = true
+          }
+          break
+          case 'deleted_lobby':
+          if (player_one == data.message.split(',')[0]) {
+            setTimeout(function () {
+              let form = document.querySelector(".error-form")
+              form.submit()
+            }, 100)
+          }
+          break
+          case 'started_match':
+            if (data.message != "{{user.username}}") {
+              start_button.disabled = true
+              let interval_time = time
+              start_button.innerText = interval_time--
+              setInterval(function (){
+                start_button.innerText = interval_time--
+                }, 1000)
+                setTimeout(function () {
+                  start_match.submit()
+                }, time * 1000)
+            }
+            break
+      }
+    }
+
+    start_button.addEventListener("click", function (event) {
+      event.preventDefault()
+      start_button.disabled = true
+      let interval_time = time
+      start_button.innerText = interval_time--
+        setInterval(function (){
+          start_button.innerText = interval_time--
+        }, 1000)
+        setTimeout(function () {
+          socket.close()
+          start_match.submit()
+        }, time * 1000)
+      sendMessage("start_match", "{{user.username}}")
+    })
+    
+    function sendMessage(type, message) {
+      socket.send(JSON.stringify({ type, message }))
+    }
+  </script>
+{% endblock %}

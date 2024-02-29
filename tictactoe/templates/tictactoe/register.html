@@ -1,0 +1,21 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+  <h2>Register</h2>
+
+  {% if message %}
+    <div>{{ message }}</div>
+  {% endif %}
+
+  <form class="register-login" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+
+    <input autofocus type="text" name="username" placeholder="Username" />
+
+    <input type="password" name="password" placeholder="Password" />
+
+    <input type="password" name="confirmation" placeholder="Confirm Password" />
+
+    <button type="submit">Register</button>
+  </form>
+{% endblock %}

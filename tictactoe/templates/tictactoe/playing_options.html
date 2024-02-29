@@ -1,0 +1,10 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+
+<div class="options-container">
+    <a href="{% url 'lobby' player_one=user.username %}"><button>Create Lobby</button></a>
+    <a href="{% url 'lobby_list' %}"><button>Join Existing Lobby</button></a>
+</div>
+
+{% endblock %}

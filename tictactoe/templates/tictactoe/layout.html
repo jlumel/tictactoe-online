@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TicTacToe</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <link href="{% static 'tictactoe/styles.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-container">
+        <a href="{% url 'index' %}"><li>Home</li></a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'match' %}"><li>Match History</li></a>
+          <a href="{% url 'ranking' %}"><li>Ranking</li></a>
+          <a href="{% url 'logout' %}"><li>Log Out</li></a>
+        {% else %}
+          <a href="{% url 'login' %}"><li>Log In</li></a>
+          <a href="{% url 'register' %}"><li>Register</li></a>
+        {% endif %}
+      </ul>
+    </nav>
+    <div class="body">
+      {% block body %}
+
+      {% endblock %}
+    </div>
+  </body>
+  {% block script %}
+    {% endblock %}
+</html>

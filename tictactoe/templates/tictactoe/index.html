@@ -1,0 +1,16 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<h2>Welcome to Tic Tac Toe, {{user.username}}!</h2>
+    <div class=start-container>
+      <a class="startbtn" href="{% url 'playing_options' %}"><button>Start Playing</button></a>
+    </div>
+  {% else %}
+  <h2>Welcome to Tic Tac Toe!</h2>
+    <div class="menu">
+      <p>If you have an account please</p> <a href="{% url 'login' %}"><button>Log In</button></a>
+      <p>Otherwise create an account and</p> <a href="{% url 'register' %}"><button>Register</button></a>
+    </div>
+  {% endif %}
+{% endblock %}

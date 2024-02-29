@@ -1,0 +1,233 @@
+{% extends 'tictactoe/layout.html' %}
+{% load static %}
+
+{% block body %}
+  <div class="match-container">
+    <div class="col">
+      <h1>Tic Tac Toe</h1>
+      <div class="container-box">
+        <div id="0" class="box">
+          <div id="line-h-1" class="box-win-h invisible"></div>
+          <div id="line-v-1" class="box-win-v invisible"></div>
+          <div id="line-lefttoright" class="box-win-d-left invisible"></div>
+          <div id="line-righttoleft" class="box-win-d-right invisible"></div>
+        </div>
+        <div id="1" class="box">
+          <div id="line-v-2" class="box-win-v invisible"></div>
+        </div>
+        <div id="2" class="box">
+          <div id="line-v-3" class="box-win-v invisible"></div>
+        </div>
+      </div>
+      <div class="container-box">
+        <div id="3" class="box">
+          <div id="line-h-2" class="box-win-h invisible"></div>
+        </div>
+        <div id="4" class="box"></div>
+        <div id="5" class="box"></div>
+      </div>
+      <div class="container-box">
+        <div id="6" class="box">
+          <div id="line-h-3" class="box-win-h invisible"></div>
+        </div>
+        <div id="7" class="box"></div>
+        <div id="8" class="box"></div>
+      </div>
+    </div>
+    <div class="col2">
+      <table class="players">
+        <thead>
+          <tr>
+            <th>Players</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="player1">X - {{ player_one }}</td>
+          </tr>
+          <tr>
+            <td id="player2">O - {{ player_two }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="msg">
+        <p id="winner" class="invisible">lumel Won!</p>
+        <p id="draw" class="invisible">Draw!</p>
+        <div class="match-buttons">
+          <button id="leave">Leave Room</button>
+          <button id="reset" class="invisible">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form style="display: none;" class="error-form" action="/error" method="post">
+    {% csrf_token %}
+    <input name="title" type="text" value="Opponent disconnected" />
+    <input name="text" type="text" value="Go back to Lobby List" />
+    <input name="path" type="text" value="/lobby_list" />
+  </form>
+
+  {% block script %}
+    <script src="{% static 'tictactoe/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'tictactoe/utils.js' %}"></script>
+  {% endblock %}
+
+  <script type="text/javascript">
+    let boxes = $('.box')
+    let click = 2
+    let list_cross = []
+    let list_circle = []
+    let winner
+    let resetbtn = $('#reset')
+    let leavebtn = $('#leave')
+    let winnermsg = $('#winner')
+    let draw = $('#draw')
+    let player1 = $('#player1')
+    let player2 = $('#player2')
+    let host = player1.text().substring(4)
+    let opponent = player2.text().substring(4)
+    let turn
+    
+    let url = `ws://${window.location.host}/ws/match?p=${host},${opponent}`
+    const socket = new WebSocket(url)
+    socket.onmessage = function (event) {
+      let data = JSON.parse(event.data)
+    
+      switch (data.type) {
+        case 'move':
+          if (data.message.player != '{{user.username}}') {
+            move(null, data.message.move)
+          }
+          break
+        case 'reset':
+          if (data.message.player != '{{user.username}}') {
+            reset(event, true)
+          }
+          break
+        case 'connection_closed':
+          let form = document.querySelector('.error-form')
+          form.submit()
+          break
+      }
+    }
+    
+    function sendMessage(type, message) {
+      socket.send(JSON.stringify({ type, message }))
+    }
+    
+    player1.addClass('turn')
+    turn = player1.text().substring(4)
+    
+    boxes.click(move)
+    
+    resetbtn.click(reset)
+    
+    leavebtn.click(function () {
+      window.location.href = '/lobby_list'
+    })
+    
+    function move(event, message) {
+      let box
+      if (message) {
+        box = $(`#${message.id}`).addClass('box')
+      } else {
+        if (turn != '{{user.username}}') {
+          return
+        }
+        box = $(this)
+        let boxInfo
+      }
+      if (!box.hasClass('circle') && !box.hasClass('cross')) {
+        message ? box.addClass(message.class) : null
+        if (click % 2 === 0 && !winner) {
+          message ? null : box.addClass('cross')
+          list_cross.push(box[0].id)
+          player2.addClass('turn')
+          turn = player2.text().substring(4)
+          player1.removeClass('turn')
+          boxInfo = {
+            id: box[0].id,
+            class: box.attr('class').split(' ')[1]
+          }
+          message ? null : sendMessage('new_move', { move: boxInfo, player: '{{user.username}}' })
+        } else if (click % 2 === 1 && !winner) {
+          message ? null : box.addClass('circle')
+          list_circle.push(box[0].id)
+          player1.addClass('turn')
+          turn = player1.text().substring(4)
+          player2.removeClass('turn')
+          boxInfo = {
+            id: box[0].id,
+            class: box.attr('class').split(' ')[1]
+          }
+          message ? null : sendMessage('new_move', { move: boxInfo, player: '{{user.username}}' })
+        }
+    
+        if (checkWinner(list_cross)) {
+          if (host == '{{user.username}}') {
+            fetch('/match', {
+              method: 'POST',
+              body: JSON.stringify({ player_one: player1.text().substring(4), player_two: player2.text().substring(4), winner: player1.text().substring(4), loser: player2.text().substring(4) })
+            })
+          }
+          message ? null : sendMessage('end_match', { winner: player1.text().substring(4), loser: player2.text().substring(4) })
+          player1.removeClass('turn')
+          player2.removeClass('turn')
+          winnermsg.show()
+          resetbtn.show()
+          winnermsg.text(player1.text().substring(4) + ' Won' + '!')
+        } else if (checkWinner(list_circle)) {
+          if (host == '{{user.username}}') {
+            fetch('/match', {
+              method: 'POST',
+              body: JSON.stringify({ player_one: player1.text().substring(4), player_two: player1.text().substring(4), winner: player2.text().substring(4), loser: player1.text().substring(4) })
+            })
+          }
+          message ? null : sendMessage('end_match', { winner: player2.text().substring(4), loser: player1.text().substring(4) })
+          player1.removeClass('turn')
+          player2.removeClass('turn')
+          winnermsg.show()
+          resetbtn.show()
+          winnermsg.text(player2.text().substring(4) + ' Won' + '!')
+        }
+    
+        if (click === 10 && !winner) {
+          if (host == '{{user.username}}') {
+            fetch('/match', {
+              method: 'POST',
+              body: JSON.stringify({ player_one: player1.text().substring(4), player_two: player2.text().substring(4) })
+            })
+          }
+          message ? null : sendMessage('end_match', 'draw')
+          resetbtn.show()
+          draw.show()
+          player1.removeClass('turn')
+          player2.removeClass('turn')
+        }
+        click++
+      }
+    }
+    
+    function reset(event, second) {
+      list_cross = []
+      list_circle = []
+      click = 2
+      winner = false
+      const temp = player1.text().substring(4)
+      player1.text('X - ' + player2.text().substring(4))
+      player2.text('O - ' + temp)
+      boxes.removeClass('cross')
+      boxes.removeClass('circle')
+      player1.addClass('turn')
+      winnermsg.hide()
+      draw.hide()
+      resetbtn.hide()
+      $('.box-win-h').hide()
+      $('.box-win-v').hide()
+      $('#line-lefttoright').hide()
+      $('#line-righttoleft').hide()
+      second ? null : sendMessage('reset_match', { player: '{{user.username}}' })
+    }
+  </script>
+{% endblock %}

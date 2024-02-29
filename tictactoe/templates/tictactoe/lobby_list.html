@@ -1,0 +1,61 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+  <div class="lobby_list_container">
+    <p>Select a Lobby to play</p>
+
+    <ul class="lobby_list">
+      {% if lobby_list %}
+        {% for lobby in lobby_list %}
+          {% if lobby != user.username %}
+            <a id="{{ lobby }}" href="{% url 'lobby' player_one=lobby %}"><li>{{ lobby }}</li></a>
+            {% comment %} <a href="{% url 'lobby' player_one = user.username %}">
+              <li>
+                <span>username</span><span>W:2 / L:4 / D:5</span>
+              </li>
+            </a> {% endcomment %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+
+  <script type="text/javascript">
+    let url = `ws://${window.location.host}/ws/lobby_list`
+    const socket = new WebSocket(url)
+    const lobby_list = document.querySelector('.lobby_list')
+    socket.onmessage = function (event) {
+      let data = JSON.parse(event.data)
+      switch (data.type) {
+        case 'created_lobby':
+        if (data.message != "{{user.username}}") {
+          let new_lobby = document.createElement('a')
+          new_lobby.id = data.message
+          new_lobby.href = `/lobby/${data.message}`
+          let li = document.createElement('li')
+          li.innerText = data.message
+          new_lobby.appendChild(li)
+          lobby_list.appendChild(new_lobby)
+        }
+          break
+        case 'deleted_lobby':
+          lobby_list.removeChild(document.querySelector(`#${data.message}`))
+          break
+        case 'new_player':
+          lobby_list.removeChild(document.querySelector(`#${data.message.split(',')[0]}`))
+          break
+        case 'player_leave':
+        if (data.message != "{{user.username}}") {
+          let recreate_lobby = document.createElement('a')
+          recreate_lobby.id = data.message.split(',')[0]
+          recreate_lobby.href = `/lobby/${data.message.split(',')[0]}`
+          let recreate_li = document.createElement('li')
+          recreate_li.innerText = data.message.split(',')[0]
+          recreate_lobby.appendChild(recreate_li)
+          lobby_list.appendChild(recreate_lobby)
+        }
+          break
+      }
+    }
+  </script>
+{% endblock %}

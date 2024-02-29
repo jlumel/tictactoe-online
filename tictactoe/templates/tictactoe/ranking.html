@@ -1,0 +1,34 @@
+{% extends 'tictactoe/layout.html' %}
+
+{% block body %}
+
+<h2>Ranking</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Match History</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            {% for rank in ranking %}
+            <tr>
+                <td>
+                    #{{forloop.counter}}
+                </td>
+                <td>
+                    {{rank.username}}
+                </td>
+                <td>
+                    W: {{rank.match_history.wins}} / L: {{rank.match_history.losses}} / D: {{rank.match_history.draws}}
+                </td>
+            </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
