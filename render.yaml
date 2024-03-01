@@ -1,12 +1,11 @@
 services:
   - name: web
+    type: web
     buildCommand: bash build.sh
     startCommand: gunicorn -b 0.0.0.0 final_project.wsgi:application
-    env:
-      - key: RENDER_DEV_MODE
-        value: '1'
-    plan: starter
+    plan: free
 
   - name: websocket
+    type: web
     startCommand: daphne -b 0.0.0.0 final_project.asgi:application
-    plan: starter
+    plan: free
