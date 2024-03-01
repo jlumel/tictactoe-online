@@ -446,6 +446,53 @@ text-align: center;
     flex-direction: column;
   }
 
+  .nav-container li {
+    font-size: 48px;
+    margin-right: 4vw;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  h2 {
+    font-size: 48px;
+  }
+
+  .register-login {
+    width: 70vw;
+    height: 40vh;
+  }
+  
+  .register-login input, .register-login button {
+    width: 55vw;
+    height: 5vh;
+    margin: 3vw auto;
+    font-size: 36px;
+  }
+
+  .menu {
+    font-size: 36px;
+  }
+  
+  .menu button {
+    width: 15vw;
+    border: none;
+    font-size: 30px;
+    height: 4vh;
+  }
+
+  .startbtn button {
+    font-size: 6rem;
+    padding: 2rem;
+  }
+
+  .options-container button {
+    margin: 0 2vw;
+    font-size: 2rem;
+    padding: 2rem;
+  }
+
   #reset {
     cursor: pointer;
     border: none;
@@ -453,7 +500,7 @@ text-align: center;
     color: white;
     background-color: green;
     padding: 10px;
-    font-size: 24px;
+    font-size: 30px;
   }
   
   #leave {
@@ -463,25 +510,43 @@ text-align: center;
     color: white;
     background-color: red;
     padding: 10px;
-    font-size: 24px;
+    font-size: 30px;
+  }
+
+  .lobby_list_container p {
+    font-size: 36px;
   }
 
   .lobby_list {
     width: 60vw
   }
 
+  .players-container button {
+    font-size: 6rem;
+  }
+  
+  .players-container p {
+    font-size: 4rem;
+  }
+  
+  .start-button {
+    font-size: 6rem;
+  }
+
   .box {
-    width: 200px;
-    height: 200px;
+    width: 230px;
+    height: 230px;
     font-size: 12px;
   }
 
   .players {
-    height: 200px
+    height: 300px;
+    width: 500px
   }
 
   .players td, .players th {
-    font-size: 24px;
+    font-size: 36px;
+    padding: 20px
   }
 
   #msg {
