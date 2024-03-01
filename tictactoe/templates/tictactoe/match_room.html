@@ -90,7 +90,7 @@
     let turn
     let url
     if (window.location.host.includes("tictactoe")) {
-      url = `wss://tictactoe.lumel.dev:8000/ws/match?p=${host},${opponent}`
+      url = `wss://tictactoe.lumel.dev:443/ws/match?p=${host},${opponent}`
     } else {
       url = `ws://${window.location.host}/ws/match?p=${host},${opponent}`
     }

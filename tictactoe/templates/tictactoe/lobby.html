@@ -36,7 +36,7 @@
     const start_button = document.querySelector(".start-match")[3]
     let url
     if (window.location.host.includes("tictactoe")) {
-      url = `wss://tictactoe.lumel.dev:8000/ws/lobby?p=${player_one}`
+      url = `wss://tictactoe.lumel.dev:443/ws/lobby?p=${player_one}`
     } else {
       url = `ws://${window.location.host}/ws/lobby?p=${player_one}`
     }
