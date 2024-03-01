@@ -35,7 +35,7 @@ DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 if os.getenv("DEVELOPMENT"):
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 else:
-    ALLOWED_HOSTS = ["tictactoe.lumel.dev", "tictactoe-m1zs.onrender.com"]
+    ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
 
 # Application definition
