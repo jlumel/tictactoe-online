@@ -10,4 +10,5 @@ services:
     type: web
     runtime: python
     startCommand: daphne -b 0.0.0.0 final_project.asgi:application
+    buildCommand: pip install -r requirements.txt
     plan: free
