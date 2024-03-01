@@ -34,7 +34,12 @@
     const players = document.querySelector(".players-container")
     const start_match = document.querySelector(".start-match")
     const start_button = document.querySelector(".start-match")[3]
-    let url = `ws://${window.location.host}/ws/lobby?p=${player_one}`
+    let url
+    if (window.location.host.includes("tictactoe")) {
+      url = `wss://tictactoe.lumel.dev:8000/ws/lobby?p=${player_one}`
+    } else {
+      url = `ws://${window.location.host}/ws/lobby?p=${player_one}`
+    }
     const socket = new WebSocket(url)
     let players_count
     const time = 5

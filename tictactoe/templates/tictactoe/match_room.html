@@ -88,8 +88,12 @@
     let host = player1.text().substring(4)
     let opponent = player2.text().substring(4)
     let turn
-    
-    let url = `ws://${window.location.host}/ws/match?p=${host},${opponent}`
+    let url
+    if (window.location.host.includes("tictactoe")) {
+      url = `wss://tictactoe.lumel.dev:8000/ws/match?p=${host},${opponent}`
+    } else {
+      url = `ws://${window.location.host}/ws/match?p=${host},${opponent}`
+    }
     const socket = new WebSocket(url)
     socket.onmessage = function (event) {
       let data = JSON.parse(event.data)

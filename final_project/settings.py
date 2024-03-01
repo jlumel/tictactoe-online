@@ -35,7 +35,7 @@ DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 if os.getenv("DEVELOPMENT"):
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 else:
-    ALLOWED_HOSTS = ["tictactoe.lumel.dev", "tictactoe-7ce5.onrender.com"]
+    ALLOWED_HOSTS = ["tictactoe.lumel.dev"]
 
 
 # Application definition
@@ -60,7 +60,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -158,6 +159,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

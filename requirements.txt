@@ -8,3 +8,4 @@ django-cors-headers==4.3.1
 gunicorn==21.2.0
 psycopg2==2.9.9
 daphne==3.0.2
+whitenoise==6.6.0

@@ -21,7 +21,12 @@
   </div>
 
   <script type="text/javascript">
-    let url = `ws://${window.location.host}/ws/lobby_list`
+    let url
+    if (window.location.host.includes("tictactoe")) {
+      url = `wss://tictactoe.lumel.dev:8000/ws/lobby_list`
+    } else {
+      url = `ws://${window.location.host}/ws/lobby_list`
+    }
     const socket = new WebSocket(url)
     const lobby_list = document.querySelector('.lobby_list')
     socket.onmessage = function (event) {

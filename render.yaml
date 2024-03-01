@@ -3,6 +3,3 @@ services:
     name: web
     buildCommand: ./build.sh
     startCommand: ./start.sh
-    nginx:
-      useNginx: true
-      config: nginx.conf
