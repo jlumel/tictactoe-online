@@ -32,5 +32,3 @@ The Redis database has to be created and run outside the App. On production use 
 - Start on development
 
 **python manage.py runserver**
-
-For production use build.sh and start.sh files. There is a render configuration file. If you are not using it delete it and use your own.
