@@ -23,7 +23,7 @@
   <script type="text/javascript">
     let url
     if (window.location.host.includes("tictactoe")) {
-      url = `wss://tictactoe.lumel.dev:443/ws/lobby_list`
+      url = `wss://${window.location.host}/ws/lobby_list`
     } else {
       url = `ws://${window.location.host}/ws/lobby_list`
     }
