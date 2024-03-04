@@ -521,6 +521,10 @@ text-align: center;
     width: 60vw
   }
 
+  .lobby_list li {
+    font-size: 18px;
+  }
+
   .players-container button {
     font-size: 6rem;
   }
