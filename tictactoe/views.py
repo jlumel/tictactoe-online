@@ -100,10 +100,10 @@ def lobby(request, player_one):
             return render(request, "tictactoe/lobby.html", {"player_one": player_one})
         else:
             player_two = request.user.username
-            return render (request, "tictactoe/lobby.html", {"player_one": player_one, "player_two": player_two})
+            return render(request, "tictactoe/lobby.html", {"player_one": player_one, "player_two": player_two})
     elif redis.hgetall(f"lobby:{player_one}") and int(redis.hget(f"lobby:{player_one}", "players_count")) == 2:
         player_two = redis.hget(f"lobby:{player_one}", "opponent").decode('utf-8')
-        return render (request, "tictactoe/lobby.html", {"player_one": player_one, "player_two": player_two})
+        return render(request, "tictactoe/lobby.html", {"player_one": player_one, "player_two": player_two})
     else:
         if player_one == request.user.username:
             return render(request, "tictactoe/lobby.html", {"player_one": player_one})

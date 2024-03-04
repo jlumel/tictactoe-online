@@ -144,6 +144,7 @@ class MatchConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         host = self.scope["query_string"].decode("utf-8")[2:].split(",")[0]
+        redis.delete(f"match:{host}")
         await self.channel_layer.group_send(
             f"match_{host}_group",
             {"type": "connection_closed", "message": "Disconnected"}

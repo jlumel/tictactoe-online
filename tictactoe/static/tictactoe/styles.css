@@ -58,7 +58,7 @@ h1 {
 }
 
 .circle, .cross {
-  background-image: url('assets/tic.png');
+  background-image: url('assets/tic.webp');
 }
 
 .cross {
@@ -68,7 +68,7 @@ h1 {
 .box-win-h {
   width: 600px;
   height: 180px;
-  background: url(assets/LineH.png);
+  background: url(assets/LineH.webp);
   position: relative;
   animation: mymoveh 0.5s;
   animation-timing-function: linear;
@@ -78,20 +78,20 @@ h1 {
   0% {
     width: 0px;
     height: 180px;
-    background: url(assets/LineH.png);
+    background: url(assets/LineH.webp);
   }
 
   100% {
     width: 600px;
     height: 180px;
-    background: url(assets/LineH.png);
+    background: url(assets/LineH.webp);
   }
 }
 
 .box-win-v {
   width: 180px;
   height: 600px;
-  background: url(assets/LineV.png);
+  background: url(assets/LineV.webp);
   position: relative;
   animation: mymovev 0.5s;
   animation-timing-function: linear;
@@ -101,20 +101,20 @@ h1 {
   0% {
     width: 180px;
     height: 0px;
-    background: url(assets/LineV.png);
+    background: url(assets/LineV.webp);
   }
 
   100% {
     width: 180px;
     height: 600px;
-    background: url(assets/LineV.png);
+    background: url(assets/LineV.webp);
   }
 }
 
 .box-win-d-left {
   width: 600px;
   height: 600px;
-  background: url(assets/LineD-iztode.png);
+  background: url(assets/LineD-iztode.webp);
   position: relative;
   animation: mymoved-left 0.5s;
   animation-timing-function: linear;
@@ -124,20 +124,20 @@ h1 {
   0% {
     width: 0px;
     height: 0px;
-    background: url(assets/LineD-iztode.png);
+    background: url(assets/LineD-iztode.webp);
   }
 
   100% {
     width: 600px;
     height: 600px;
-    background: url(assets/LineD-iztode.png);
+    background: url(assets/LineD-iztode.webp);
   }
 }
 
 .box-win-d-right {
   width: 600px;
   height: 600px;
-  background: url(assets/LineD-detoiz.png);
+  background: url(assets/LineD-detoiz.webp);
   position: relative;
   animation: mymoved-right 0.5s;
   animation-timing-function: linear;
@@ -147,13 +147,13 @@ h1 {
   0% {
     width: 0px;
     height: 600px;
-    background: url(assets/LineD-detoiz.png);
+    background: url(assets/LineD-detoiz.webp);
   }
 
   100% {
     width: 600px;
     height: 600px;
-    background: url(assets/LineD-detoiz.png);
+    background: url(assets/LineD-detoiz.webp);
   }
 }
 
