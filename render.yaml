@@ -1,0 +1,6 @@
+services:
+  - name: tictactoe
+    type: web
+    runtime: python
+    env: docker
+    startCommand: docker run -p 80:80 tictactoe

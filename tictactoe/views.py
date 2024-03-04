@@ -19,7 +19,6 @@ if os.getenv("DEVELOPMENT"):
     redis = Redis(host='localhost', port=6379, db=0)
 else:
     redis = Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")), db=int(os.getenv("REDIS_DB")), password=os.getenv("REDIS_PASS"))
-redis.flushdb()
 
 # Create your views here.
 
